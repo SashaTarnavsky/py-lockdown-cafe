@@ -1,26 +1,21 @@
 class VaccineError(Exception):
-    """Базовий клас для помилок, пов'язаних із вакцинацією."""
 
-    def __init__(self, message: str) -> None:
+    def __init__(self, message: str) -> None:  # Додана анотація типу
         super().__init__(message)
 
 
 class NotVaccinatedError(VaccineError):
-    """Помилка: відвідувач не вакцинований."""
 
-    def __init__(self) -> None:
-        super().__init__("Visitor is not vaccinated.")
+    def __init__(self, message: str) -> None:  # Додана анотація типу
+        super().__init__(message)
 
 
 class OutdatedVaccineError(VaccineError):
-    """Помилка: вакцина прострочена."""
 
-    def __init__(self) -> None:
-        super().__init__("Visitor's vaccine is outdated.")
+    def __init__(self, message: str) -> None:  # Додана анотація типу
+        super().__init__(message)
 
 
 class NotWearingMaskError(Exception):
-    """Помилка: відвідувач без маски."""
-
-    def __init__(self) -> None:
-        super().__init__("Visitor is not wearing a mask.")
+    def __init__(self, message: str) -> None:  # Додана анотація типу
+        super().__init__(message)

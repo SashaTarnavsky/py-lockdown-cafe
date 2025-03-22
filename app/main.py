@@ -1,22 +1,21 @@
-from cafe import Cafe
-from errors import VaccineError, NotWearingMaskError
+# main.py
+import datetime
+from app.cafe import Cafe
+from typing import List, Dict
 
 
-def go_to_cafe(friends: list, cafe: Cafe) -> str:
-    """Determines if all friends can visit the cafe."""
-
-    masks_to_buy = 0
-
+def go_to_cafe(friends: List[Dict[str, object]], cafe: Cafe) -> str:
+    # Перевірка вакцинації для кожного друга
     for friend in friends:
-        try:
-            cafe.visit_cafe(friend)
-        except VaccineError:
+        if "vaccine" not in friend:
             return "All friends should be vaccinated"
-        except NotWearingMaskError:
-            masks_to_buy += 1
+        if friend["vaccine"]["expiration_date"] < datetime.date.today():
+            return "All friends should be vaccinated"
 
-    if masks_to_buy > 0:
-        return f"Friends should buy {masks_to_buy} masks"
+    # Якщо всі друзі вакциновані, перевіряємо маски
+    mask_needed = sum(1 for f in friends if not f.get("wearing_a_mask", False))
+    if mask_needed > 0:
+        return f"Friends should buy {mask_needed} masks"
 
+    # Якщо все добре, можна йти в кафе
     return f"Friends can go to {cafe.name}"
-# write your code here
